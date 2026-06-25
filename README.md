@@ -239,22 +239,9 @@ El proyecto requiere las siguientes variables de entorno configuradas en Saturn 
 
 ---
 
-## 🚀 Flujo de ejecución
-
-```
-main.py
-  ├── get_token()               → Obtiene JWT de la API de Asimetrix
-  ├── create_session()          → Conecta a Snowflake con Key Pair Auth
-  └── operadora_service.run()
-        ├── _get_date_range()   → Calcula rango: ayer → hoy
-        ├── _fetch_all_pages()  → Extrae datos paginados de la API
-        ├── _build_objects()    → Deduplica y construye objetos ORM
-        └── _upsert()           → Elimina existentes e inserta en lotes
-```
-
----
-
 ## 📦 Instalación de dependencias
+
+Instalar las librerías necesarias con:
 
 ```bash
 pip install -r requirements.txt
@@ -270,28 +257,33 @@ python main.py
 
 ---
 
-## 📊 Destino de los datos
+## 📝 Logs
 
-| Parámetro | Valor |
-|---|---|
-| Database | `RAW` |
-| Schema | `API_BOREAL` |
-| Tabla | `OPERADORAAPI` |
-| Batch size | `15.000` registros por commit |
+El proceso genera logs en consola y en el archivo:
+
+```text
+logs/boreal.log
+```
+
+Los logs registran información como:
+
+* Inicio del proceso.
+* Obtención del token.
+* Conexión a Snowflake.
+* Rango de fechas consultado.
+* Cantidad de registros obtenidos.
+* Cantidad de registros únicos.
+* Inserción por lotes.
+* Envío de correos.
+* Errores del proceso.
 
 ---
 
 ## 📧 Notificaciones por correo
 
+El proceso envía correo en dos casos:
+
 | Evento | Asunto |
 |---|---|
-| Ejecución exitosa | `✅ BOREAL - Errores en APIs — Ejecución exitosa` |
-| Error en ejecución | `❌ BOREAL - Errores en APIs — Errores detectados` |
-
----
-
-## 📝 Logs
-
-Los logs se escriben simultáneamente en:
-- **Consola** — nivel `INFO` (capturado por Saturn Cloud)
-- **`logs/boreal.log`** — nivel `DEBUG` (detalle completo)
+| Ejecución exitosa | `✅ API BOREAL - Ejecución exitosa` |
+| Error en ejecución | `❌ API BOREAL - Errores detectados` |
