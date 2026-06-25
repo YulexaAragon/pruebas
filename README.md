@@ -27,7 +27,7 @@ api_boreal/
 
 ---
 
-## Flujo general
+## 🔄 Flujo general
 
 ```text
 main.py
@@ -49,9 +49,9 @@ Correo de éxito o error
 
 ---
 
-## Descripción de archivos
+## 🗂️ Descripción de archivos
 
-### `main.py`
+### 🚀 `main.py`
 
 Archivo principal del proceso.
 
@@ -66,7 +66,7 @@ Responsabilidades:
 
 ---
 
-### `config.py`
+### ⚙️ `config.py`
 
 Archivo central de configuración.
 
@@ -83,7 +83,7 @@ Contiene:
 
 ---
 
-### `auth/token_gen.py`
+### 🔑 `auth/token_gen.py`
 
 Se encarga de generar el token de autenticación.
 
@@ -92,11 +92,11 @@ Responsabilidades:
 * Hacer una petición POST al endpoint de login.
 * Enviar usuario y contraseña de la API.
 * Extraer el `access_token` de la respuesta.
-* Construir el header de autorización:
+* Construir el header de autorización.
 
 ---
 
-### `db/database.py`
+### ❄️ `db/database.py`
 
 Se encarga de crear la sesión hacia Snowflake.
 
@@ -108,11 +108,11 @@ Responsabilidades:
 * Ubicar la sesión en la database y schema configurados.
 * Retornar una sesión SQLAlchemy lista para usar.
 
-La conexión usa Key Pair Authentication.
+> 🔒 La conexión usa **Key Pair Authentication** con usuario de servicio.
 
 ---
 
-### `models/operadora.py`
+### 🗃️ `models/operadora.py`
 
 Define el modelo ORM de la tabla `OPERADORAAPI`.
 
@@ -132,7 +132,7 @@ farm + time + variable_ubidots_id
 
 ---
 
-### `services/operadora_service.py`
+### 🔧 `services/operadora_service.py`
 
 Contiene la lógica principal del ETL.
 
@@ -150,7 +150,7 @@ Responsabilidades:
 
 ---
 
-### `services/mailer.py`
+### 📧 `services/mailer.py`
 
 Contiene las funciones de envío de correo.
 
@@ -162,7 +162,7 @@ Responsabilidades:
 
 ---
 
-## Fuente de datos
+## 🌐 Fuente de datos
 
 Endpoint principal:
 
@@ -178,13 +178,12 @@ https://login.asimetrix.co/
 
 ---
 
-## Destino de datos
+## 🎯 Destino de datos
 
-Para pruebas, el proceso apunta a:
-
-```text
-RAW.API_BOREAL.OPERADORAAPI_PRUEBA
-```
+> ⚠️ Para pruebas, el proceso apunta a:
+> ```text
+> RAW.API_BOREAL.OPERADORAAPI_PRUEBA
+> ```
 
 La tabla productiva es:
 
@@ -194,11 +193,9 @@ RAW.API_BOREAL.OPERADORAAPI
 
 ---
 
-## Tipo de carga
+## 📥 Tipo de carga
 
-El proceso no borra toda la tabla.
-
-La estrategia actual es un reemplazo incremental por IDs:
+El proceso no borra toda la tabla. La estrategia es un **reemplazo por IDs**:
 
 ```text
 1. Consulta datos del rango de fechas configurado.
@@ -241,8 +238,6 @@ El proyecto requiere las siguientes variables de entorno configuradas en Saturn 
 
 ## 📦 Instalación de dependencias
 
-Instalar las librerías necesarias con:
-
 ```bash
 pip install -r requirements.txt
 ```
@@ -265,17 +260,17 @@ El proceso genera logs en consola y en el archivo:
 logs/boreal.log
 ```
 
-Los logs registran información como:
+Los logs registran:
 
-* Inicio del proceso.
-* Obtención del token.
-* Conexión a Snowflake.
-* Rango de fechas consultado.
-* Cantidad de registros obtenidos.
-* Cantidad de registros únicos.
-* Inserción por lotes.
-* Envío de correos.
-* Errores del proceso.
+* 🚀 Inicio del proceso
+* 🔑 Obtención del token
+* 🔌 Conexión a Snowflake
+* 🔌 Rango de fechas consultado
+* 📦 Cantidad de registros obtenidos
+* 📦 Cantidad de registros únicos
+* 📥 Inserción por lotes
+* 📧 Envío de correos
+* ❌ Errores del proceso
 
 ---
 
@@ -285,5 +280,5 @@ El proceso envía correo en dos casos:
 
 | Evento | Asunto |
 |---|---|
-| Ejecución exitosa | `✅ API BOREAL - Ejecución exitosa` |
-| Error en ejecución | `❌ API BOREAL - Errores detectados` |
+| ✅ Ejecución exitosa | `✅ API BOREAL - Ejecución exitosa` |
+| ❌ Error en ejecución | `❌ API BOREAL - Errores detectados` |
