@@ -162,6 +162,54 @@ Responsabilidades:
 
 ---
 
+## Fuente de datos
+
+Endpoint principal:
+
+```text
+https://cerberus.asimetrix.co/v2/boreal/OPERADORAAVICOLA
+```
+
+Endpoint de autenticación:
+
+```text
+https://login.asimetrix.co/
+```
+
+---
+
+## Destino de datos
+
+Para pruebas, el proceso apunta a:
+
+```text
+RAW.API_BOREAL.OPERADORAAPI_PRUEBA
+```
+
+La tabla productiva es:
+
+```text
+RAW.API_BOREAL.OPERADORAAPI
+```
+
+---
+
+## Tipo de carga
+
+El proceso no borra toda la tabla.
+
+La estrategia actual es un reemplazo incremental por IDs:
+
+```text
+1. Consulta datos del rango de fechas configurado.
+2. Elimina duplicados en memoria.
+3. Construye variable_id para cada registro.
+4. Borra en Snowflake los registros que tengan esos mismos variable_id.
+5. Inserta los registros nuevos.
+```
+
+---
+
 ## ⚙️ Variables de entorno
 
 El proyecto requiere las siguientes variables de entorno configuradas en Saturn Cloud:
